@@ -1,0 +1,7 @@
+Será avaliado os sequintes requisitos:
+- Todas as telas do aplicativo (Caso seja enorme, negociar comigo as telas)
+- Sistema de Navegação
+- Qualidade do código e organização
+- Visual e usabilidade do aplicativo
+- O aplicativo deverá ter recurso de listagem de itens, no caso de Expo, listagem otimizada com Flatlist
+- Uso de Recursos nativos tais como Camera, GPS, Identifcação de wifi....
