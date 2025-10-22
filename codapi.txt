@@ -1,0 +1,41 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+import subprocess as sbp
+import ipaddress
+
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins = ["*"],
+    allow_credentials = True,
+    allow_methods = ["*"],
+    allow_headers = ["*"],
+)
+
+def all_net():
+    add = []
+    var = ipaddress.IPv4Network('192.168.3.0/28')
+    for i in var.hosts():
+        new = str(i)
+        add.append(new)
+    return add
+def scan_network(add):
+    results = {}
+    try:
+        for i in add:
+            exc = sbp.run(['ping',i], capture_output=True, text=True)
+            result = exc.stdout
+            if 'TTL' in result:
+                results[i] = 'ativo'
+            else:
+                results[i] = 'inativo'
+    except KeyboardInterrupt:
+        print('Encerrado pelo o usuário')
+    
+    return results
+
+@app.get("/scan")
+def scan_api():
+    v = all_net()
+    return scan_network(v)
